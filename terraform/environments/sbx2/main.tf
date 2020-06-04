@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 locals {
-  environment = "SBX2"
+  environment        = "SBX2"
   availability_zones = ["eu-west-2a", "eu-west-2b"]
 }
 

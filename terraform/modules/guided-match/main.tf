@@ -46,12 +46,12 @@ resource "aws_db_subnet_group" "guided_match" {
 }
 
 data "aws_ssm_parameter" "master_username" {
-  name = "${lower(var.environment)}-guided-match-db-master-username"
+  name            = "${lower(var.environment)}-guided-match-db-master-username"
   with_decryption = true
 }
 
 data "aws_ssm_parameter" "master_password" {
-  name = "${lower(var.environment)}-guided-match-db-master-password"
+  name            = "${lower(var.environment)}-guided-match-db-master-password"
   with_decryption = true
 }
 

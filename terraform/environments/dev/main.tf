@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 locals {
-  environment = "DEV"
+  environment        = "DEV"
   availability_zones = ["eu-west-2a", "eu-west-2b"]
 }
 

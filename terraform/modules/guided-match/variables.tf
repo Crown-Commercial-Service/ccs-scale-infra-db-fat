@@ -1,4 +1,4 @@
-variable "aws_account_id" {
+variable "vpc_id" {
   type = string
 }
 
@@ -7,6 +7,10 @@ variable "environment" {
 }
 
 variable "availability_zones" {
+  type = list(string)
+}
+
+variable "private_db_subnet_ids" {
   type = list(string)
 }
 

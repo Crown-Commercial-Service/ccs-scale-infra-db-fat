@@ -87,3 +87,10 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   publicly_accessible  = true
   db_subnet_group_name = aws_db_subnet_group.guided_match.name
 }
+
+resource "aws_ssm_parameter" "instance_endpoint" {
+  name      = "${lower(var.environment)}-guided-match-db-endpoint"
+  type      = "String"
+  value     = aws_rds_cluster_instance.cluster_instances[0].endpoint
+  overwrite = true
+}

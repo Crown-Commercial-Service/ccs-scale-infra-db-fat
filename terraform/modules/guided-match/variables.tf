@@ -14,6 +14,10 @@ variable "private_db_subnet_ids" {
   type = list(string)
 }
 
+variable "cidr_blocks_db" {
+  type = list(string)
+}
+
 variable "deletion_protection" {
   type = bool
 }

@@ -24,12 +24,17 @@ data "aws_ssm_parameter" "public_web_subnet_ids" {
   name = "${lower(var.environment)}-public-web-subnet-ids"
 }
 
+data "aws_ssm_parameter" "cidr_blocks_db" {
+  name = "${lower(var.environment)}-cidr-blocks-db"
+}
+
 module "guided-match" {
   source                          = "../../guided-match"
   environment                     = var.environment
   vpc_id                          = data.aws_ssm_parameter.vpc_id.value
   availability_zones              = var.availability_zones
   private_db_subnet_ids           = split(",", data.aws_ssm_parameter.private_db_subnet_ids.value)
+  cidr_blocks_db                  = split(",", data.aws_ssm_parameter.cidr_blocks_db.value)
   deletion_protection             = var.deletion_protection
   skip_final_snapshot             = var.skip_final_snapshot
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports

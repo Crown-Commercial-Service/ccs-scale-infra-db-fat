@@ -17,9 +17,6 @@ resource "aws_security_group" "allow_postgres_external" {
     from_port = 5432
     to_port   = 5432
     protocol  = "tcp"
-    # Please restrict your ingress to only necessary IPs and ports.
-    # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
-    # Tried limiting egress to web & app subnets - could not get a local connection via SSH tunneling
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -27,9 +24,7 @@ resource "aws_security_group" "allow_postgres_external" {
     from_port = 5432
     to_port   = 5432
     protocol  = "tcp"
-    # Please restrict your ingress to only necessary IPs and ports.
-    # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.cidr_blocks_db
   }
 }
 

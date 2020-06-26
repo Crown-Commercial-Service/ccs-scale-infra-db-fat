@@ -64,6 +64,8 @@ resource "aws_rds_cluster" "default" {
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   skip_final_snapshot             = var.skip_final_snapshot
   final_snapshot_identifier       = "final-snaphot-agreements-${uuid()}"
+  backup_retention_period         = var.backup_retention_period
+  preferred_backup_window         = "00:24-00:54"
 
   lifecycle {
     ignore_changes = [

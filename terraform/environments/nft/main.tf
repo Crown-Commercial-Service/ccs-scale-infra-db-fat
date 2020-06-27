@@ -36,4 +36,5 @@ module "deploy" {
   skip_final_snapshot             = false
   enabled_cloudwatch_logs_exports = ["postgresql"]
   backup_retention_period         = 35
+  guided_match_cluster_instances  = 3
 }

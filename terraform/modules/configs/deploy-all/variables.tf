@@ -24,6 +24,11 @@ variable "enabled_cloudwatch_logs_exports" {
 }
 
 variable "backup_retention_period" {
+type    = number
+  default = 1
+}
+
+variable "guided_match_cluster_instances" {
   type    = number
   default = 1
 }

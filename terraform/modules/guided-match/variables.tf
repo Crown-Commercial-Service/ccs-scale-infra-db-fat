@@ -30,3 +30,7 @@ variable "enabled_cloudwatch_logs_exports" {
 variable "backup_retention_period" {
   type    = number
 }
+
+variable "cluster_instances" {
+  type = number
+}

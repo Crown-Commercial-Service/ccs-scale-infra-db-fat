@@ -50,6 +50,17 @@ data "aws_ssm_parameter" "master_password" {
   with_decryption = true
 }
 
+resource "aws_kms_key" "guided_match" {
+  description = "Key for Guided Match Postgres Aurora Cluster - ccs-eu2-${lower(var.environment)}-db-guided-match"
+
+  tags = {
+    Project     = module.globals.project_name
+    Environment = upper(var.environment)
+    Cost_Code   = module.globals.project_cost_code
+    AppType     = "ECS"
+  }
+}
+
 resource "aws_rds_cluster" "default" {
   cluster_identifier              = "ccs-eu2-${lower(var.environment)}-db-guided-match"
   availability_zones              = var.availability_zones
@@ -63,7 +74,11 @@ resource "aws_rds_cluster" "default" {
   db_subnet_group_name            = aws_db_subnet_group.guided_match.name
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   skip_final_snapshot             = var.skip_final_snapshot
-  final_snapshot_identifier       = "final-snaphot-agreements-${uuid()}"
+  final_snapshot_identifier       = "final-snaphot-guided-match-${uuid()}"
+  backup_retention_period         = var.backup_retention_period
+  preferred_backup_window         = "00:24-00:54"
+  kms_key_id                      = aws_kms_key.guided_match.arn
+  storage_encrypted               = true
 
   lifecycle {
     ignore_changes = [
@@ -73,7 +88,7 @@ resource "aws_rds_cluster" "default" {
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
-  count                = 1
+  count                = var.cluster_instances
   identifier           = "ccs-eu2-${lower(var.environment)}-db-guided-match-${count.index}"
   cluster_identifier   = aws_rds_cluster.default.id
   instance_class       = "db.t3.medium"
@@ -86,6 +101,6 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
 resource "aws_ssm_parameter" "instance_endpoint" {
   name      = "${lower(var.environment)}-guided-match-db-endpoint"
   type      = "String"
-  value     = aws_rds_cluster_instance.cluster_instances[0].endpoint
+  value     = aws_rds_cluster.default.endpoint
   overwrite = true
 }

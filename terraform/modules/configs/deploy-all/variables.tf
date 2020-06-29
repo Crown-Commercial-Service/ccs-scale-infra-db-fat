@@ -22,3 +22,13 @@ variable "skip_final_snapshot" {
 variable "enabled_cloudwatch_logs_exports" {
   type = list(string)
 }
+
+variable "backup_retention_period" {
+type    = number
+  default = 1
+}
+
+variable "guided_match_cluster_instances" {
+  type    = number
+  default = 1
+}

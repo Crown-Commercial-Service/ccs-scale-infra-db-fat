@@ -34,3 +34,7 @@ variable "backup_retention_period" {
 variable "cluster_instances" {
   type = number
 }
+
+variable "db_instance_class" {
+  type = string
+}

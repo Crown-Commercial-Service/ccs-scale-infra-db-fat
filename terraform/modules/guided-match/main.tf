@@ -91,7 +91,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   count                = var.cluster_instances
   identifier           = "ccs-eu2-${lower(var.environment)}-db-guided-match-${count.index}"
   cluster_identifier   = aws_rds_cluster.default.id
-  instance_class       = "db.t3.medium"
+  instance_class       = var.db_instance_class
   engine               = "aurora-postgresql"
   apply_immediately    = true
   publicly_accessible  = true
@@ -102,5 +102,12 @@ resource "aws_ssm_parameter" "instance_endpoint" {
   name      = "${lower(var.environment)}-guided-match-db-endpoint"
   type      = "String"
   value     = aws_rds_cluster.default.endpoint
+  overwrite = true
+}
+
+resource "aws_ssm_parameter" "instance_endpoint_ro" {
+  name      = "${lower(var.environment)}-guided-match-db-ro-endpoint"
+  type      = "String"
+  value     = aws_rds_cluster.default.reader_endpoint
   overwrite = true
 }

@@ -37,4 +37,5 @@ module "deploy" {
   enabled_cloudwatch_logs_exports = ["postgresql"]
   backup_retention_period         = 35
   guided_match_cluster_instances  = length(local.availability_zones)
+  db_instance_class               = "db.t3.large"
 }

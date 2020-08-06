@@ -35,4 +35,5 @@ module "guided-match" {
   enabled_cloudwatch_logs_exports = var.enabled_cloudwatch_logs_exports
   backup_retention_period         = var.backup_retention_period
   cluster_instances               = var.guided_match_cluster_instances
+  db_instance_class               = var.db_instance_class
 }

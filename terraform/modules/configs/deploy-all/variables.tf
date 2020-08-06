@@ -24,11 +24,16 @@ variable "enabled_cloudwatch_logs_exports" {
 }
 
 variable "backup_retention_period" {
-type    = number
+  type    = number
   default = 1
 }
 
 variable "guided_match_cluster_instances" {
   type    = number
   default = 1
+}
+
+variable "db_instance_class" {
+  type    = string
+  default = "db.t3.medium"
 }

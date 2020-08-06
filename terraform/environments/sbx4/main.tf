@@ -1,12 +1,12 @@
 #########################################################
-# Environment: NFT
+# Environment: SBX4
 #
 # Deploy SCALE FaT databases
 #########################################################
 terraform {
   backend "s3" {
     bucket         = "scale-terraform-state"
-    key            = "ccs-scale-infra-db-fat-nft"
+    key            = "ccs-scale-infra-db-fat-sbx4"
     region         = "eu-west-2"
     dynamodb_table = "scale_terraform_state_lock"
     encrypt        = true
@@ -19,8 +19,8 @@ provider "aws" {
 }
 
 locals {
-  environment        = "NFT"
-  availability_zones = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
+  environment        = "SBX4"
+  availability_zones = ["eu-west-2a", "eu-west-2b"]
 }
 
 data "aws_ssm_parameter" "aws_account_id" {
@@ -35,7 +35,5 @@ module "deploy" {
   deletion_protection             = false
   skip_final_snapshot             = false
   enabled_cloudwatch_logs_exports = ["postgresql"]
-  backup_retention_period         = 35
-  guided_match_cluster_instances  = length(local.availability_zones)
-  db_instance_class               = "db.t3.large"
+  guided_match_cluster_instances  = 2
 }

@@ -24,6 +24,10 @@ data "aws_ssm_parameter" "public_web_subnet_ids" {
   name = "${lower(var.environment)}-public-web-subnet-ids"
 }
 
+data "aws_ssm_parameter" "aurora_kms_key_arn" {
+  name = "${lower(var.environment)}-aurora-encryption-key"
+}
+
 module "guided-match" {
   source                          = "../../guided-match"
   environment                     = var.environment
@@ -36,4 +40,6 @@ module "guided-match" {
   backup_retention_period         = var.backup_retention_period
   cluster_instances               = var.guided_match_cluster_instances
   db_instance_class               = var.db_instance_class
+  snapshot_identifier             = var.snapshot_identifier
+  kms_key_id                      = data.aws_ssm_parameter.aurora_kms_key_arn.value
 }

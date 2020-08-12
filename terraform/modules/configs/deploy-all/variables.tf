@@ -37,3 +37,12 @@ variable "db_instance_class" {
   type    = string
   default = "db.t3.medium"
 }
+
+#####################################
+# Override this if you want to create 
+# a new database from a snapshot 
+#####################################
+variable "snapshot_identifier" {
+  type = string
+  default = ""
+}

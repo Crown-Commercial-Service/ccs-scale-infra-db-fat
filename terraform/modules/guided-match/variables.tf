@@ -38,3 +38,11 @@ variable "cluster_instances" {
 variable "db_instance_class" {
   type = string
 }
+
+variable "snapshot_identifier" {
+  type = string
+}
+
+variable "kms_key_id" {
+  type = string
+}

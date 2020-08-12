@@ -77,12 +77,14 @@ resource "aws_rds_cluster" "default" {
   final_snapshot_identifier       = "final-snaphot-guided-match-${uuid()}"
   backup_retention_period         = var.backup_retention_period
   preferred_backup_window         = "00:24-00:54"
-  kms_key_id                      = aws_kms_key.guided_match.arn
+  kms_key_id                      = var.kms_key_id
   storage_encrypted               = true
+  snapshot_identifier             = var.snapshot_identifier
 
   lifecycle {
     ignore_changes = [
-      availability_zones
+      availability_zones,
+      snapshot_identifier
     ]
   }
 }

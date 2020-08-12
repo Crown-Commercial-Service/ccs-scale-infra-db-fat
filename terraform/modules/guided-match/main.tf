@@ -68,7 +68,6 @@ resource "aws_rds_cluster" "default" {
   master_username                 = data.aws_ssm_parameter.master_username.value
   master_password                 = data.aws_ssm_parameter.master_password.value
   engine                          = "aurora-postgresql"
-  engine_version                  = "11.7"
   apply_immediately               = true
   vpc_security_group_ids          = ["${aws_security_group.allow_postgres_external.id}"]
   deletion_protection             = var.deletion_protection

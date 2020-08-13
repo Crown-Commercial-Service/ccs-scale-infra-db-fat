@@ -38,4 +38,5 @@ module "deploy" {
   backup_retention_period         = 35
   guided_match_cluster_instances  = length(local.availability_zones)
   db_instance_class               = "db.r5.xlarge"
+  snapshot_identifier             = "final-snaphot-guided-match-0f4dbc34-ff47-0a08-eb51-30798fb5760c"
 }

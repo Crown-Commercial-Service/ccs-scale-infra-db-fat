@@ -8,6 +8,10 @@ module "globals" {
   source = "../globals"
 }
 
+data "aws_vpc" "scale" {
+  id = var.vpc_id
+}
+
 resource "aws_security_group" "allow_postgres_external" {
   name        = "allow_postgres_guided_match"
   description = "Allow Postgres traffic"
@@ -17,14 +21,14 @@ resource "aws_security_group" "allow_postgres_external" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [data.aws_vpc.scale.cidr_block]
   }
 
   egress {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [data.aws_vpc.scale.cidr_block]
   }
 }
 

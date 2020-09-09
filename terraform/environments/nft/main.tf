@@ -38,4 +38,5 @@ module "deploy" {
   backup_retention_period         = 35
   guided_match_cluster_instances  = length(local.availability_zones)
   db_instance_class               = "db.r5.xlarge"
+  snapshot_identifier             = "ccs-eu2-nft-db-guided-match-performance-test-800-users"
 }

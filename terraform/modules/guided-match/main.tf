@@ -120,6 +120,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   cluster_identifier   = aws_rds_cluster.default.id
   instance_class       = var.db_instance_class
   engine               = "aurora-postgresql"
+  ca_cert_identifier   = "rds-ca-rsa2048-g1"
   apply_immediately    = true
   publicly_accessible  = false
   db_subnet_group_name = aws_db_subnet_group.guided_match.name
